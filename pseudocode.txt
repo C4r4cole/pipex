@@ -1,0 +1,26 @@
+->fork [cmd1]
+        -close(monpipe[0])
+        -open(fd_in)
+        dup2(fd_in, stdin)
+        dup2(monpipe[1], stdout)
+        close(fd_in, monpipe[1])
+        --> split pour avoir argv
+        -->trouver executable selon argv[0]
+        execve(executable, argv, envp)
+->fork [cmd2]
+        -close(monpipe[1])
+        -open(fd_out)
+        dup2(monpipe[0], stdint)
+        dup2(fd_out, stdout)
+        close(fd_in, monpipe[1])
+        --> split pour avoir argv
+        -->trouver executable selon argv[0]
+        execve(executable, argv, envp)
+->main
+    pipe()
+    fork(cmd1)
+    close pipe[1]
+    fork(cmd2)
+    close pipe[0]
+    waitpid(cmd1)
+    waitpid(cmd2)
