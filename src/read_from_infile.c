@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   read_from_infile.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/15 13:58:13 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/16 11:07:50 by fmoulin          ###   ########.fr       */
+/*   Created: 2025/07/16 10:46:15 by fmoulin           #+#    #+#             */
+/*   Updated: 2025/07/16 11:04:46 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-int	main(void)
+void	read_from_infile(void)
 {
-	read_from_infile();
-	write_on_outfile();
-	execute_cmd();
-	return (0);
+	int	fd;
+
+	fd = open("infile", O_RDONLY | O_CREAT, 0777);
+	dup2(fd, STDIN_FILENO);
+	close(fd);
 }
