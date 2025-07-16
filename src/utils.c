@@ -6,8 +6,16 @@
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:58:22 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/15 13:59:09 by fmoulin          ###   ########.fr       */
+/*   Updated: 2025/07/16 13:55:11 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
+
+char	**split_cmd(char *args)
+{
+	char	**cmd;
+	
+	cmd = ft_split(args, ' ');
+	return (cmd);
+}
