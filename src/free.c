@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_cmd.c                                      :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/16 11:03:08 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/18 15:39:22 by fmoulin          ###   ########.fr       */
+/*   Created: 2025/07/18 14:40:22 by fmoulin           #+#    #+#             */
+/*   Updated: 2025/07/18 14:43:30 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-void	execute_cmd(char *args, char **envp)
+void	free_split(char **tab)
 {
-	char	*cmd;
-	char	**split_cmd;
-	char	**cmd_options;
+	int	i;
 
-	split_cmd = ft_split(args, ' ');
-	cmd_options = &split_cmd[1];
-	cmd = get_cmd(envp, split_cmd[0]);
-	if (!cmd)
+	i = 0;
+	while (tab[i])
 	{
-		free_split(split_cmd);
-		perror("command not found");
-		exit(127);
+		free(tab[i]);
+		i++;
 	}
-	if (execve(cmd, &split_cmd[0], cmd_options) == -1)
-	{
-		free_split(split_cmd);
-		perror("Could not execute execve");
-	}
-	ft_printf("This shoud never be visible");
+	free(tab);
 }

@@ -6,7 +6,7 @@
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:58:13 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/17 16:29:43 by fmoulin          ###   ########.fr       */
+/*   Updated: 2025/07/18 14:26:42 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,3 @@ int	main(int argc, char **argv, char **envp)
 	}
 	return (0);
 }
-// /usr/bin/cat
-// cat
-// a/cat
-// PATH=/usr/bin::a

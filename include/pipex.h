@@ -6,7 +6,7 @@
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:58:08 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/17 17:08:13 by fmoulin          ###   ########.fr       */
+/*   Updated: 2025/07/18 14:43:47 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ void	child1_process(int *fd, char **args, char **envp);
 void	child2_process(int *fd, char **args, char **envp);
 char	*get_path(char **envp);
 char	*get_cmd(char **envp, char *cmd);
+void	free_split(char **tab);
 
 #endif

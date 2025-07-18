@@ -6,7 +6,7 @@
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:58:18 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/17 19:07:31 by fmoulin          ###   ########.fr       */
+/*   Updated: 2025/07/18 15:45:02 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,31 +30,12 @@ void	child2_process(int *fd, char **args, char **envp)
 	exit(0);
 }
 
-int	create_pipe(char **args, char **envp)
+void	second_fork(int *fd, char **args, char **envp, int pid1)
 {
-	int fd[2];
-	int	pid1;
-	int pid2;
-	int	status1;
-	int	status2;
-	
-	if (pipe(fd) == -1)
-	{
-		perror("pipe");
-		exit(1);
-	}
-	pid1 = fork();
-	if (pid1 == -1)
-	{
-		perror("fork1");
-		exit(1);
-	}
-	if (pid1 == 0)
-	{
-		child1_process(fd, args, envp);
-	}
-	else
-	{
+		int pid2;
+		int	status1;
+		int	status2;
+		
 		pid2 = fork();
 		if (pid2 == -1)
 		{
@@ -72,6 +53,30 @@ int	create_pipe(char **args, char **envp)
 			waitpid(pid1, &status1, 0);
 			waitpid(pid2, &status2, 0);
 		}
+}
+
+int	create_pipe(char **args, char **envp)
+{
+	int fd[2];
+	int	pid1;
+
+	
+	if (pipe(fd) == -1)
+	{
+		perror("pipe");
+		exit(1);
 	}
+	pid1 = fork();
+	if (pid1 == -1)
+	{
+		perror("fork1");
+		exit(1);
+	}
+	if (pid1 == 0)
+	{
+		child1_process(fd, args, envp);
+	}
+	else
+		second_fork(fd, args, envp, pid1);
 	return (0);
 }
