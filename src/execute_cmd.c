@@ -6,11 +6,11 @@
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:03:08 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/18 15:39:22 by fmoulin          ###   ########.fr       */
+/*   Updated: 2025/07/18 18:23:50 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "pipex.h"
 
 void	execute_cmd(char *args, char **envp)
 {
@@ -27,10 +27,11 @@ void	execute_cmd(char *args, char **envp)
 		perror("command not found");
 		exit(127);
 	}
-	if (execve(cmd, &split_cmd[0], cmd_options) == -1)
+	if (execve(cmd, split_cmd, envp) == -1)
 	{
 		free_split(split_cmd);
 		perror("Could not execute execve");
 	}
+	free(cmd);
 	ft_printf("This shoud never be visible");
 }

@@ -6,13 +6,13 @@
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 10:52:58 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/16 20:28:37 by fmoulin          ###   ########.fr       */
+/*   Updated: 2025/07/18 18:23:13 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "pipex.h"
 
-void	write_on_outfile(char *outfile)
+int	write_on_outfile(char *outfile)
 {
 	int	fd;
 
@@ -22,6 +22,5 @@ void	write_on_outfile(char *outfile)
 		perror(outfile);
 		exit(EXIT_FAILURE);
 	}
-	dup2(fd, STDOUT_FILENO);
-	close(fd);
+	return (fd);
 }

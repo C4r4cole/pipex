@@ -6,11 +6,11 @@
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:58:22 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/18 15:38:31 by fmoulin          ###   ########.fr       */
+/*   Updated: 2025/07/18 18:23:38 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "pipex.h"
 
 char	*get_path(char **envp)
 {
@@ -35,7 +35,11 @@ char	*get_cmd(char **envp, char *cmd)
 	char	*path_n_cmd;
 	
 	i = 0;
+	if (ft_strchr(cmd, '/'))
+		return (ft_strdup(cmd));
 	path = get_path(envp);
+	if (!path)
+		return (NULL);
 	split_path = ft_split(path, ':');
 	while (split_path[i])
 	{
@@ -43,10 +47,7 @@ char	*get_cmd(char **envp, char *cmd)
 		path_n_cmd = ft_strjoin(with_slash, cmd);
 		free(with_slash);
 		if (access(path_n_cmd, X_OK) == 0)
-		{
-			free_split(split_path);
-			return (path_n_cmd);
-		}
+			return (free_split(split_path), path_n_cmd);
 		free(path_n_cmd);
 		i++;
 	}

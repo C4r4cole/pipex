@@ -6,7 +6,7 @@
 #    By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/26 11:07:46 by fmoulin           #+#    #+#              #
-#    Updated: 2025/07/18 14:49:18 by fmoulin          ###   ########.fr        #
+#    Updated: 2025/07/18 16:18:50 by fmoulin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ OBJS	= $(OBJS_DIR)/main.o $(OBJS_DIR)/pipex.o $(OBJS_DIR)/get_cmd_path.o \
 # Compilation
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3
+IFLAGS = -Iinclude -Ilibft
 RM = rm -f
 
 # Libft
@@ -46,7 +47,8 @@ $(NAME): $(OBJS)
 # Compilation des objets
 $(OBJS_DIR)/%.o: src/%.c
 	@mkdir -p $(OBJS_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
+# $(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	$(RM) -r $(OBJS_DIR)

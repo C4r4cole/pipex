@@ -6,11 +6,11 @@
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 14:40:22 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/18 14:43:30 by fmoulin          ###   ########.fr       */
+/*   Updated: 2025/07/18 18:23:43 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "pipex.h"
 
 void	free_split(char **tab)
 {
