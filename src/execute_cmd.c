@@ -6,27 +6,24 @@
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:03:08 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/16 14:14:50 by fmoulin          ###   ########.fr       */
+/*   Updated: 2025/07/17 16:27:11 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-void	execute_cmd(char **args)
+void	execute_cmd(char *args, char **envp)
 {
-	char	*cmd_path;
-	char	*cmd1;
-	char	**split_cmd1;
-	// char	**split_cmd2;
-	char	**envv;
+	char	*cmd;
+	char	**split_cmd;
+	char	**cmd_options;
 
-	split_cmd1 = split_cmd(args[1]);
-	envv = &split_cmd1[1];
-	cmd_path = "/usr/bin/";
-	cmd1 = ft_strjoin(cmd_path, split_cmd1[0]);
-	ft_printf("Start of execve call %s:\n", cmd1);
+	split_cmd = ft_split(args, ' '); // ne pas oublier tous les free !!!!!!
+	cmd_options = &split_cmd[1];
+	cmd = get_cmd(envp, split_cmd[0]);
+	ft_printf("Start of execve call %s:\n", cmd);
 	ft_printf("=====================================\n");
-	if (execve(cmd1, &split_cmd1[0], envv) == -1)
+	if (execve(cmd, &split_cmd[0], cmd_options) == -1)
 	{
 		perror("Could not execute execve");
 	}

@@ -6,7 +6,7 @@
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 10:46:15 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/16 14:44:41 by fmoulin          ###   ########.fr       */
+/*   Updated: 2025/07/16 17:47:31 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	read_from_infile(char *infile)
 	if (fd == -1)
 	{
 		perror(infile);
-		exit(EXIT_SUCCESS);
+		exit(EXIT_FAILURE);
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);

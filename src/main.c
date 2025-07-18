@@ -6,31 +6,28 @@
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:58:13 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/16 14:48:54 by fmoulin          ###   ########.fr       */
+/*   Updated: 2025/07/17 16:29:43 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **envp)
 {
 	char	**args;
-	char	*infile;
-	char	*outfile;
 	
 	args = argv + 1;
-	if (argc != 4)
+	if (argc != 5)
 		write(2, "Error\n", 6);
 	else
 	{
-		infile = args[0];
-		outfile = args[2]; //a changer par 3 quand j'aurai implemente la deuxieme commande
-		if (args[0])
-		{
-			read_from_infile(infile);
-			write_on_outfile(outfile);
-		}
-		execute_cmd(args);
+		read_from_infile(args[0]);
+		write_on_outfile(args[3]);
+		create_pipe(args, envp);
 	}
 	return (0);
 }
+// /usr/bin/cat
+// cat
+// a/cat
+// PATH=/usr/bin::a
