@@ -6,7 +6,7 @@
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:58:18 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/18 18:23:24 by fmoulin          ###   ########.fr       */
+/*   Updated: 2025/07/20 20:24:45 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,22 @@ void	child1_process(int *fd, char **args, char **envp)
 	int	fd_infile;
 	
 	fd_infile = read_from_infile(args[0]);
-	dup2(fd_infile, STDIN_FILENO);
-	close(fd_infile);
-	close(fd[0]);
-	dup2(fd[1], STDOUT_FILENO);
-	close(fd[1]);
-	execute_cmd(args[1], envp);
-	exit(0);
+	if (fd_infile == -1)
+	{
+		close_fd(fd, fd_infile);
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		dup2(fd_infile, STDIN_FILENO);
+		dup2(fd[1], STDOUT_FILENO);
+		close_fd(fd, fd_infile);
+		execute_cmd(args[1], envp);
+		exit(0);
+	}
 }
 
-void	child2_process(int *fd, char **args, char **envp)
+/* void	child2_process(int *fd, char **args, char **envp)
 {
 	int	fd_outfile;
 	
@@ -38,6 +44,26 @@ void	child2_process(int *fd, char **args, char **envp)
 	close(fd[0]);
 	execute_cmd(args[2], envp);
 	exit(0);
+} */
+
+void	child2_process(int *fd, char **args, char **envp)
+{
+	int	fd_outfile;
+	
+	fd_outfile = write_on_outfile(args[3]);
+	if (fd_outfile == -1)
+	{
+		close_fd(fd, fd_outfile);
+		exit (EXIT_FAILURE);
+	}
+	else
+	{
+		dup2(fd[0], STDIN_FILENO);
+		dup2(fd_outfile, STDOUT_FILENO);
+		close_fd(fd, fd_outfile);
+		execute_cmd(args[2], envp);
+		exit(0);		
+	}
 }
 
 void	second_fork(int *fd, char **args, char **envp, int pid1)

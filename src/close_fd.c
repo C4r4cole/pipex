@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_from_infile.c                                 :+:      :+:    :+:   */
+/*   close_fd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/16 10:46:15 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/20 20:22:19 by fmoulin          ###   ########.fr       */
+/*   Created: 2025/07/20 19:35:51 by fmoulin           #+#    #+#             */
+/*   Updated: 2025/07/20 19:40:55 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	read_from_infile(char *infile)
+void	close_fd(int *fd, int fd_in_out)
 {
-	int	fd;
-
-	fd = open(infile, O_RDONLY, 0644);
-	if (fd == -1)
-	{
-		perror(infile);
-		// exit(EXIT_FAILURE);
-	}
-	return (fd);
+		close(fd_in_out);
+		close(fd[1]);
+		close(fd[0]);
 }
