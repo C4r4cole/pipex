@@ -6,7 +6,7 @@
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:03:08 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/18 18:23:50 by fmoulin          ###   ########.fr       */
+/*   Updated: 2025/07/21 14:45:10 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,18 @@ void	execute_cmd(char *args, char **envp)
 	cmd = get_cmd(envp, split_cmd[0]);
 	if (!cmd)
 	{
+		write(2, "command not found: ", 20);
+		write(2, split_cmd[0], ft_strlen(split_cmd[0]));
+		write(2, "\n", 2);
 		free_split(split_cmd);
-		perror("command not found");
 		exit(127);
 	}
 	if (execve(cmd, split_cmd, envp) == -1)
 	{
 		free_split(split_cmd);
+		free(cmd);
 		perror("Could not execute execve");
+		exit(126);
 	}
 	free(cmd);
-	ft_printf("This shoud never be visible");
 }

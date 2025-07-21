@@ -6,7 +6,7 @@
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 10:52:58 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/20 19:30:04 by fmoulin          ###   ########.fr       */
+/*   Updated: 2025/07/21 11:59:04 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	write_on_outfile(char *outfile)
 {
-	int	fd;
+	int	fd_outfile;
 
-	fd = open(outfile, O_WRONLY | O_CREAT, 0644);
-	if (fd == -1)
+	fd_outfile = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd_outfile == -1)
 	{
 		perror(outfile);
 	}
-	return (fd);
+	return (fd_outfile);
 }

@@ -6,67 +6,39 @@
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:58:18 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/20 20:24:45 by fmoulin          ###   ########.fr       */
+/*   Updated: 2025/07/21 15:28:50 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	child1_process(int *fd, char **args, char **envp)
+int	get_code_err(int status)
 {
-	int	fd_infile;
-	
-	fd_infile = read_from_infile(args[0]);
-	if (fd_infile == -1)
+	int	code;
+
+	if (WIFEXITED(status))
 	{
-		close_fd(fd, fd_infile);
-		exit(EXIT_FAILURE);
+		code = WEXITSTATUS(status);
+		return (code);
 	}
-	else
-	{
-		dup2(fd_infile, STDIN_FILENO);
-		dup2(fd[1], STDOUT_FILENO);
-		close_fd(fd, fd_infile);
-		execute_cmd(args[1], envp);
-		exit(0);
-	}
+	return (0);
 }
 
-/* void	child2_process(int *fd, char **args, char **envp)
+int	which_err(int status1, int status2)
 {
-	int	fd_outfile;
-	
-	fd_outfile = write_on_outfile(args[3]);
-	dup2(fd[0], STDIN_FILENO);
-	dup2(fd_outfile, STDOUT_FILENO);
-	close(fd_outfile);
-	close(fd[1]);
-	close(fd[0]);
-	execute_cmd(args[2], envp);
-	exit(0);
-} */
+	int	code1;
+	int	code2;
 
-void	child2_process(int *fd, char **args, char **envp)
-{
-	int	fd_outfile;
-	
-	fd_outfile = write_on_outfile(args[3]);
-	if (fd_outfile == -1)
-	{
-		close_fd(fd, fd_outfile);
-		exit (EXIT_FAILURE);
-	}
-	else
-	{
-		dup2(fd[0], STDIN_FILENO);
-		dup2(fd_outfile, STDOUT_FILENO);
-		close_fd(fd, fd_outfile);
-		execute_cmd(args[2], envp);
-		exit(0);		
-	}
+	code1 = get_code_err(status1);
+	code2 = get_code_err(status2);
+	if (code2 != 0)
+		return (code2);
+	else if (code1 != 0)
+		return (code1);
+	return (0);
 }
 
-void	second_fork(int *fd, char **args, char **envp, int pid1)
+int	second_fork(int *fd, char **args, char **envp, int pid1)
 {
 	int pid2;
 	int	status1;
@@ -76,7 +48,7 @@ void	second_fork(int *fd, char **args, char **envp, int pid1)
 	if (pid2 == -1)
 	{
 		perror("fork2");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	if (pid2 == 0)
 	{
@@ -88,7 +60,9 @@ void	second_fork(int *fd, char **args, char **envp, int pid1)
 		close(fd[1]);
 		waitpid(pid1, &status1, 0);
 		waitpid(pid2, &status2, 0);
+		return (which_err(status1, status2));
 	}
+	return (0);
 }
 
 int	create_pipe(char **args, char **envp)
@@ -100,19 +74,19 @@ int	create_pipe(char **args, char **envp)
 	if (pipe(fd) == -1)
 	{
 		perror("pipe");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	pid1 = fork();
 	if (pid1 == -1)
 	{
 		perror("fork1");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	if (pid1 == 0)
 	{
 		child1_process(fd, args, envp);
 	}
 	else
-		second_fork(fd, args, envp, pid1);
+		return (second_fork(fd, args, envp, pid1));
 	return (0);
 }
