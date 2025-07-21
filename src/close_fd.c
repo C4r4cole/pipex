@@ -6,7 +6,7 @@
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 19:35:51 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/20 19:40:55 by fmoulin          ###   ########.fr       */
+/*   Updated: 2025/07/21 16:01:09 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	close_fd(int *fd, int fd_in_out)
 {
-		close(fd_in_out);
-		close(fd[1]);
-		close(fd[0]);
+	close(fd_in_out);
+	close(fd[1]);
+	close(fd[0]);
 }

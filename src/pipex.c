@@ -6,7 +6,7 @@
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:58:18 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/21 15:28:50 by fmoulin          ###   ########.fr       */
+/*   Updated: 2025/07/21 15:59:39 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ int	which_err(int status1, int status2)
 
 int	second_fork(int *fd, char **args, char **envp, int pid1)
 {
-	int pid2;
+	int	pid2;
 	int	status1;
 	int	status2;
-	
+
 	pid2 = fork();
 	if (pid2 == -1)
 	{
@@ -67,10 +67,9 @@ int	second_fork(int *fd, char **args, char **envp, int pid1)
 
 int	create_pipe(char **args, char **envp)
 {
-	int fd[2];
+	int	fd[2];
 	int	pid1;
 
-	
 	if (pipe(fd) == -1)
 	{
 		perror("pipe");
