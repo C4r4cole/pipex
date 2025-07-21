@@ -6,7 +6,7 @@
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:58:13 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/21 19:51:59 by fmoulin          ###   ########.fr       */
+/*   Updated: 2025/07/21 20:10:18 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 5)
 	{
-		write(2, "Usage: ...\n", 6);	// commentaire
+		write(2, "4 arguments are requested\n", 27);
 		return (EXIT_FAILURE);
 	}
 	else
