@@ -6,7 +6,7 @@
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:58:18 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/21 15:59:39 by fmoulin          ###   ########.fr       */
+/*   Updated: 2025/07/21 17:36:31 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,6 @@ int	get_code_err(int status)
 		code = WEXITSTATUS(status);
 		return (code);
 	}
-	return (0);
-}
-
-int	which_err(int status1, int status2)
-{
-	int	code1;
-	int	code2;
-
-	code1 = get_code_err(status1);
-	code2 = get_code_err(status2);
-	if (code2 != 0)
-		return (code2);
-	else if (code1 != 0)
-		return (code1);
 	return (0);
 }
 
@@ -60,7 +46,7 @@ int	second_fork(int *fd, char **args, char **envp, int pid1)
 		close(fd[1]);
 		waitpid(pid1, &status1, 0);
 		waitpid(pid2, &status2, 0);
-		return (which_err(status1, status2));
+		return (get_code_err(status2));
 	}
 	return (0);
 }

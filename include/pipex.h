@@ -6,7 +6,7 @@
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:58:08 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/21 15:35:21 by fmoulin          ###   ########.fr       */
+/*   Updated: 2025/07/21 19:27:01 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdbool.h>
 # include <limits.h>
 # include <fcntl.h>
+# include <errno.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 
@@ -35,6 +36,7 @@ void	free_split(char **tab);
 void	close_fd(int *fd, int fd_in_out);
 int		second_fork(int *fd, char **args, char **envp, int pid1);
 int		get_code_err(int status);
-char	*check_cmd(char *cmd);
+void	cmd_error_mgmt(char *cmd, char **split_cmd, char **envp);
+void	no_cmd(char *cmd);
 
 #endif

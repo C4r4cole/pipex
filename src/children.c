@@ -6,7 +6,7 @@
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 13:12:32 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/21 16:02:12 by fmoulin          ###   ########.fr       */
+/*   Updated: 2025/07/21 18:10:29 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	child1_process(int *fd, char **args, char **envp)
 		dup2(fd[1], STDOUT_FILENO);
 		close_fd(fd, fd_infile);
 		execute_cmd(args[1], envp);
-		exit(0);
+		exit(EXIT_SUCCESS);
 	}
 }
 
@@ -48,6 +48,6 @@ void	child2_process(int *fd, char **args, char **envp)
 		dup2(fd_outfile, STDOUT_FILENO);
 		close_fd(fd, fd_outfile);
 		execute_cmd(args[2], envp);
-		exit(0);
+		exit(EXIT_SUCCESS);
 	}
 }

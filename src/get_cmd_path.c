@@ -6,7 +6,7 @@
 /*   By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:58:22 by fmoulin           #+#    #+#             */
-/*   Updated: 2025/07/21 16:00:40 by fmoulin          ###   ########.fr       */
+/*   Updated: 2025/07/21 19:33:11 by fmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,6 @@ char	*get_path(char **envp)
 	return (NULL);
 }
 
-char	*check_cmd(char *cmd)
-{
-	if (!cmd)
-	{
-		write(2, "command not found\n", 19);
-		exit(127);
-	}
-	if (ft_strchr(cmd, '/'))
-		return (ft_strdup(cmd));
-	return (0);
-}
-
 char	*get_cmd(char **envp, char *cmd)
 {
 	int		i;
@@ -47,7 +35,9 @@ char	*get_cmd(char **envp, char *cmd)
 	char	*path_n_cmd;
 
 	i = 0;
-	check_cmd(cmd);
+	no_cmd(cmd);
+	if (ft_strchr(cmd, '/'))
+		return (ft_strdup(cmd));
 	path = get_path(envp);
 	if (!path)
 		return (NULL);
@@ -62,6 +52,5 @@ char	*get_cmd(char **envp, char *cmd)
 		free(path_n_cmd);
 		i++;
 	}
-	free_split(split_path);
-	return (NULL);
+	return (free_split(split_path), NULL);
 }

@@ -6,7 +6,7 @@
 #    By: fmoulin <fmoulin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/26 11:07:46 by fmoulin           #+#    #+#              #
-#    Updated: 2025/07/21 13:14:26 by fmoulin          ###   ########.fr        #
+#    Updated: 2025/07/21 19:24:03 by fmoulin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,13 +15,13 @@ NAME	= pipex
 
 # Sources
 SRCS	= main.c pipex.c get_cmd_path.c read_from_infile.c write_on_outfile.c execute_cmd.c \
-		free.c close_fd.c children.c
+		free.c close_fd.c children.c error_mgmt.c
 
 # Objets
 OBJS_DIR = obj
 OBJS	= $(OBJS_DIR)/main.o $(OBJS_DIR)/pipex.o $(OBJS_DIR)/get_cmd_path.o \
 		$(OBJS_DIR)/read_from_infile.o $(OBJS_DIR)/write_on_outfile.o $(OBJS_DIR)/execute_cmd.o \
-		$(OBJS_DIR)/free.o $(OBJS_DIR)/close_fd.o $(OBJS_DIR)/children.o
+		$(OBJS_DIR)/free.o $(OBJS_DIR)/close_fd.o $(OBJS_DIR)/children.o $(OBJS_DIR)/error_mgmt.o
 
 # Compilation
 CC = cc
